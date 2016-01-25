@@ -1,0 +1,25 @@
+{
+  "name": "temp-tool",
+  "version": "1.0.0",
+  "description": "本地模版保存及使用工具",
+  "main": "index.js",
+  "bin": {
+    "temp": "./bin/index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "colors": "^0.6.2",
+    "commander": "~2.9.0",
+    "fs-extra": "~0.15.0",
+    "multiline": "~1.0.2"
+  },
+  "keywords": [
+    "temp",
+    "tool"
+  ],
+  "author": "sanyueyu",
+  "license": "ISC",
+  "devDependencies": {}
+}
