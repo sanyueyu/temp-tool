@@ -37,10 +37,14 @@ var newTemplate = function(env) {
   if (!_arr[0]) return;
   if (!_arr[1]) {
     fse.copySync(CWD, path.join(TEMPDIR, _arr[0]));
+    console.log('new template' + env);
+    console.log('success! you can use it such as: ' + 'temp '.red + env.red + ' name'.red)
     return;
   }
   fse.ensureDirSync(path.join(TEMPDIR, _arr[0]));
   fse.copySync(CWD, path.join(TEMPDIR, _arr[0], _arr[1]));
+  console.log('new template ===> ' + env);
+  console.log('success! you can use it such as: ' + 'temp '.red + env.red + ' name'.red)
 };
 
 // 使用模版
@@ -51,17 +55,19 @@ var useTemplate = function(cmd, env) {
     if (!err) {
       if (!_arr[1]) {
         fse.copySync(path.join(TEMPDIR, _arr[0]), path.join(CWD, env));
+        console.log('congratulations! you use template ' + cmd.red + ' generate ' + env.red);
         return;
       }
       fs.access(path.join(TEMPDIR, _arr[0], _arr[1]), function(err) {
         if (!err) {
           fse.copySync(path.join(TEMPDIR, _arr[0], _arr[1]), path.join(CWD, env));
+          console.log('congratulations! you use template ' + cmd.red + ' generate ' + env.red);
         } else {
-          console.log('no such template'.red);
+          console.log('sorry no such template'.red);
         }
       });
     } else {
-      console.log('no such template'.red);
+      console.log('sorry no such template'.red);
     }
   });
 };
@@ -79,44 +85,47 @@ program.version(pkg.version, '-v, --version')
 process.argv = process.argv.map(function (arg) {
   return (arg === '-V') ? '-v' : arg;
 });
+
+// 列出模版列表
 if (process.argv.length === 2) {
   listTemplate();
 }
 
-
-
-// 新建一个模版
-//program.command('new [env]')
-//  .description('new template')
-//  .action(function(env) {
-//    if (!env) return;
-//    var _arr = env.split(':');
-//    if (!_arr[0]) return;
-//    if (!_arr[1]) {
-//      fse.copySync(CWD, path.join(TEMPDIR, _arr[0]));
-//      return;
-//    }
-//    fse.ensureDirSync(path.join(TEMPDIR, _arr[0]));
-//    fse.copySync(CWD, path.join(TEMPDIR, _arr[0], _arr[1]));
-//  });
-
-// 使用模版
-program.command('new [env]')
-  .description('new template')
+// 进入一个模版
+program.command('where [env]')
+  .description('show template path'.red)
   .action(function(env) {
-    if (!env) return;
     var _arr = env.split(':');
     if (!_arr[0]) return;
-    if (!_arr[1]) {
-      fse.copySync(CWD, path.join(TEMPDIR, _arr[0]));
-      return;
-    }
-    fse.ensureDirSync(path.join(TEMPDIR, _arr[0]));
-    fse.copySync(CWD, path.join(TEMPDIR, _arr[0], _arr[1]));
+    fs.access(path.join(TEMPDIR, _arr[0]), function(err) {
+      if (!err) {
+        if (!_arr[1]) {
+          //execSync('cd ' + path.join(TEMPDIR, _arr[0]));
+          //process.chdir(path.join(TEMPDIR, _arr[0]));
+          console.log(path.join(TEMPDIR, _arr[0]));
+          return;
+        }
+        fs.access(path.join(TEMPDIR, _arr[0], _arr[1]), function(err) {
+          if (!err) {
+            //execSync('cd ' + path.join(TEMPDIR, _arr[0], _arr[1]));
+            //process.chdir(path.join(TEMPDIR, _arr[0], _arr[1]));
+            console.log(path.join(TEMPDIR, _arr[0], _arr[1]));
+          } else {
+            console.log('sorry no such template'.red);
+          }
+        });
+      } else {
+        console.log('sorry no such template'.red);
+      }
+    });
   });
-// 进入一个模版
 
-// 列出模版列表
-
+// help
+program.on('--help', function(){
+  console.log('  Examples:');
+  console.log('');
+  console.log('  temp project:control            ' + 'new a template named '.red + 'project:control'.blue + ' use current directory'.red);
+  console.log('  temp project:control myControl  ' + 'use template '.red + 'project:control'.blue + ' generate '.red + 'myControl'.blue + ' in current directory'.red);
+});
 
 program.parse(process.argv);
