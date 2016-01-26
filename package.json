@@ -1,8 +1,8 @@
 {
   "name": "temp-tool",
   "version": "1.0.0",
-  "description": "本地模版保存及使用工具",
-  "main": "index.js",
+  "description": "The efficiency of tool for developer, imitate Yeoman generator",
+  "main": "bin/index.js",
   "bin": {
     "temp": "./bin/index.js"
   },
@@ -19,6 +19,14 @@
     "temp",
     "tool"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sanyueyu/temp-tool.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sanyueyu/temp-tool/issues"
+  },
+  "homepage": "https://github.com/sanyueyu/temp-tool#readme",
   "author": "sanyueyu",
   "license": "ISC",
   "devDependencies": {}
