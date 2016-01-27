@@ -3,8 +3,8 @@
 var fse = require('fs-extra');
 var program = require('commander');
 var colors = require('colors');
-var multiline = require('multiline');
 
+var process = require('process');
 var fs = require('fs');
 var path = require('path');
 var childProcess = require('child_process');
@@ -91,7 +91,7 @@ if (process.argv.length === 2) {
   listTemplate();
 }
 
-// 进入一个模版
+// 进入一个模版,抱歉我没有做到
 program.command('where [env]')
   .description('show template path'.red)
   .action(function(env) {
@@ -101,6 +101,9 @@ program.command('where [env]')
       if (!err) {
         if (!_arr[1]) {
           console.log(path.join(TEMPDIR, _arr[0]));
+          //execSync("alias tempdir='cd `temp where xiaoer`'");
+          //execSync('open ' + path.join(TEMPDIR, _arr[0]))
+          //process.chdir('../');
           return;
         }
         fs.access(path.join(TEMPDIR, _arr[0], _arr[1]), function(err) {

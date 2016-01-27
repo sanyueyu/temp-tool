@@ -6,15 +6,31 @@
 ![You're worth it](http://gtms01.alicdn.com/tps/i1/TB1ls3qLpXXXXc2XVXXOkoAWVXX-391-220.jpg)
 
 
-## Getting started
+## Install
 
-- Install:            `npm install -g temp-tool`
+```bash
+npm install -g temp-tool
+```
 
 ## Usage
 
-* New a template:     `temp <name>:<name>` or `temp <name>`
-* Use a template:     `temp <name>:<name> <name>` or `temp <name> <name>`
-* List all templates: `temp`
+Use the current directory to create a new template:     
+
+```bash
+temp <temp-name>  or  temp <temp-name>:<module-name>
+```
+
+Use the template:
+
+```bash
+temp <temp-name> <target-name>  or  temp <temp-name>:<module-name> <target-name>
+```
+
+List all template: 
+
+```bash
+temp
+```
 
 ## License
 
