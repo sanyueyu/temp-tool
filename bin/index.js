@@ -24,6 +24,15 @@ var listTemplate = function() {
   console.log('my templates:'.blue);
   tpls.forEach(function(item) {
     console.log(item.green.bold);
+    var controllers = fs.readdirSync(TEMPDIR + '/' + item);
+    var len = controllers.length;
+    controllers.forEach(function(controller, index) {
+      if (len === index + 1) {
+        console.log("  └─" + controller.green.bold);
+      } else {
+        console.log("  ├─ " + controller.green.bold);
+      }
+    })
   })
   if (!tpls.length) {
     console.log('sorry! there is no template'.red);
@@ -91,19 +100,23 @@ if (process.argv.length === 2) {
   listTemplate();
 }
 
+program.command('ls')
+  .description('list all temps'.red)
+  .action(function() {
+    listTemplate();
+  });
+
 // 进入一个模版,抱歉我没有做到
 program.command('where [env]')
   .description('show template path'.red)
   .action(function(env) {
+    if(!env) return console.log(TEMPDIR);
     var _arr = env.split(':');
     if (!_arr[0]) return;
     fs.access(path.join(TEMPDIR, _arr[0]), function(err) {
       if (!err) {
         if (!_arr[1]) {
           console.log(path.join(TEMPDIR, _arr[0]));
-          //execSync("alias tempdir='cd `temp where xiaoer`'");
-          //execSync('open ' + path.join(TEMPDIR, _arr[0]))
-          //process.chdir('../');
           return;
         }
         fs.access(path.join(TEMPDIR, _arr[0], _arr[1]), function(err) {

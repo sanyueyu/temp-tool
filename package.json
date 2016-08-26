@@ -1,6 +1,6 @@
 {
   "name": "temp-tool",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "The efficiency of tool for developer, imitate Yeoman generator",
   "main": "bin/index.js",
   "bin": {
@@ -12,7 +12,7 @@
   "dependencies": {
     "colors": "^0.6.2",
     "commander": "~2.9.0",
-    "fs-extra": "~0.15.0"
+    "fs-extra": "~0.30.0"
   },
   "keywords": [
     "temp",
