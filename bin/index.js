@@ -28,7 +28,7 @@ var listTemplate = function() {
     var len = controllers.length;
     controllers.forEach(function(controller, index) {
       if (len === index + 1) {
-        console.log("  └─" + controller.green.bold);
+        console.log("  └─ " + controller.green.bold);
       } else {
         console.log("  ├─ " + controller.green.bold);
       }
